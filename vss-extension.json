@@ -13,6 +13,9 @@
     "categories": [
         "Build and release"
     ],
+    "tags": [
+        "Artifact", "Utility task", "Build", "Continuous Integration"
+    ],
     "icons": {
         "default": "icon-128.png",
         "large": "icon-512.png"
