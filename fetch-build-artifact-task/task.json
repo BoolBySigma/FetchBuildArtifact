@@ -43,7 +43,7 @@
             "label": "Target Folder",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The directory where to download the artifact. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory)."
+            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory)."
         }
     ],
     "execution": {
