@@ -27,7 +27,7 @@
             "label": "Build Definition Id",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": ""
+            "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition."
         },
         {
             "name": "artifactName",
