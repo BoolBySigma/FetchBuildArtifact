@@ -2,8 +2,11 @@
 Fetch build artifacts from any project and build definition.
 
 ## Usage
-Add a new **Fetch Build Artifacts** task from the **Utility** category and configure it as needed.
+Add a new **Fetch Build Artifacts** task from the **Utility** category...
 ![Task](images/task.png)
+
+...and configure it as needed.
+
 ![Parameters](images/screenshot.png)
 Parameters include:
 * **Project**: Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using $(System.TeamProject).
