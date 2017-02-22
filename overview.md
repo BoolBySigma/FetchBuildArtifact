@@ -3,6 +3,7 @@ Fetch build artifacts from any project and build definition.
 
 ## Usage
 Add a new **Fetch Build Artifacts** task from the **Utility** category...
+
 ![Task](images/task.png)
 
 ...and configure it as needed.
