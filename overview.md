@@ -1,9 +1,10 @@
 # Fetch Build Artifacts
 Fetch build artifacts from any project and build definition.
 
-## Usage
-**Note!** This task requires **Allow Scripts to Access OAuth Token** to be **enabled**.
+## Note
+This task requires **Allow Scripts to Access OAuth Token** to be **enabled**.
 
+## Usage
 Add a new **Fetch Build Artifacts** task from the **Utility** category...
 
 ![Task](images/task.png)
