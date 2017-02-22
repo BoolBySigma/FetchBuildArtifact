@@ -1,0 +1,37 @@
+{
+    "manifestVersion": 1,
+    "id": "fetch-build-artifact",
+    "name": "Fetch Build Artifacts",
+    "version": "0.0.1",
+    "publisher": "bool",
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "description": "Fetch build artifacts from the server",
+    "categories": [
+        "Build and release"
+    ],
+    "icons": {
+        "default": "icon-128.png",
+        "large": "icon-512.png"
+    },
+    "files": [
+        {
+            "path": "fetch-build-artifact-task"
+        }
+    ],
+    "contributions": [
+        {
+            "id": "fetch-build-artifact-task",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "fetch-build-artifact-task"
+            }
+        }
+    ]
+}

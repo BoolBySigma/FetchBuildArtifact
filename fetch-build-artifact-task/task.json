@@ -1,0 +1,56 @@
+{
+    "id": "eac0431e-6ffc-4dc6-be6e-d296e9686ca6",
+    "name": "fetch-build-artifact",
+    "friendlyName": "Fetch Build Artifacts",
+    "description": "Fetch build artifacts from the server",
+    "helpMarkDown": "",
+    "category": "Utility",
+    "author": "Bool (by Sigma)",
+    "version": {
+        "Major": 0,
+        "Minor": 0,
+        "Patch": 1
+    },
+    "instanceNameFormat": "Fetch Artifact: $(artifactName)",
+    "inputs": [
+        {
+            "name": "project",
+            "type": "string",
+            "label": "Project",
+            "defaultValue": "$(System.TeamProject)",
+            "required": false,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "buildDefinitionId",
+            "type": "string",
+            "label": "Build Definition Id",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "artifactName",
+            "type": "string",
+            "label": "Build Artifact Name",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": ""
+        },
+        {
+            "name": "targetDirectory",
+            "type": "filePath",
+            "label": "Target Folder",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": ""
+        }
+    ],
+    "execution": {
+        "PowerShell": {
+            "target": "$(currentDirectory)\\fetch.ps1",
+            "argumentFormat": "",
+            "workingDirectory": "$(currentDirectory)"
+        }
+    }
+}
