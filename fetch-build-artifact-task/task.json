@@ -19,7 +19,7 @@
             "label": "Project",
             "defaultValue": "$(System.TeamProject)",
             "required": false,
-            "helpMarkDown": ""
+            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using $(System.TeamProject)."
         },
         {
             "name": "buildDefinitionId",
