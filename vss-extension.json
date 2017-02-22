@@ -28,6 +28,10 @@
     "files": [
         {
             "path": "fetch-build-artifact-task"
+        },
+        {
+            "path": "images",
+            "addressable": true
         }
     ],
     "contributions": [
