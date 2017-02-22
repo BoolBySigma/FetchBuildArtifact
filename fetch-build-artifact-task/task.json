@@ -35,7 +35,7 @@
             "label": "Build Artifact Name",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": ""
+            "helpMarkDown": "Name of the artifact to fetch, eg. \"drop\"."
         },
         {
             "name": "targetDirectory",
