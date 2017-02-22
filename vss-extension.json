@@ -20,6 +20,11 @@
         "default": "icon-128.png",
         "large": "icon-512.png"
     },
+    "content": {
+        "details": {
+            "path": "overview.md"
+        }
+    },
     "files": [
         {
             "path": "fetch-build-artifact-task"
