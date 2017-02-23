@@ -17,3 +17,6 @@ Parameters include:
 * **Build Definition Id**: Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition.
 * **Build Artifact Name**: Name of the artifact to fetch, eg. "drop".
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
+
+
+Icons made by [Freepik](http://www.freepik.com) from [Flaticon](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
