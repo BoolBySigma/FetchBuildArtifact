@@ -63,7 +63,7 @@ try {
 	$response = Invoke-RestMethod -Uri $buildUri -Method GET -Headers $authHeader
 	$buildId = $response.value.id
 } catch { 
-	throw "Could not find project `"$project`""
+	throw "Could not find project `"$project`". Make sure `"Allow Scripts to Access OAuth Token`" is enabled and that the project exists."
 }
 
 if ([string]::IsNullOrEmpty($buildId)) {
