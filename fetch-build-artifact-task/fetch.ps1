@@ -9,25 +9,10 @@ $artifactName = Get-VstsInput -Name artifactName -Require
 $targetDirectory = Get-VstsInput -Name targetDirectory -Default $Env:BUILD_SOURCESDIRECTORY
 
 try {
-	# Validate project
-	#if ([string]::IsNullOrEmpty($project)) {
-		#$project = $Env:SYSTEM_TEAMPROJECT
-	#}
-
 	# Validate build definition id
-	#[int]$definitionId = 0
-	#if (!([int]::TryParse($buildDefinitionId, [ref]$definitionId))) {
-		#throw "Build Definition Id is not a valid numerical value"
-	#}
-
-	#if ($definitionId -eq 0) {
-		#throw "Build Definition Id cannot be 0 (zero)"
-	#}
-
-	# Validate target directory
-	#if ([string]::IsNullOrEmpty($targetDirectory)) {
-		#$targetDirectory = $Env:BUILD_SOURCESDIRECTORY
-	#}
+	if ($definitionId -eq 0) {
+		Write-VstsTaskError "Invalid Build Definition Id. Must be a numerical value and an existing build definition."
+	}
 
 	if (!(Test-Path $targetDirectory -PathType Container)) {
 		Write-VstsTaskError "Invalid Target Directory. The path is not a directory or does not exist."
@@ -105,7 +90,6 @@ try {
 		[System.IO.Compression.ZipFile]::ExtractToDirectory($artifactPath, $targetDirectory)
 	}
 
-	Write-Output "Items included in build artifact:"
 	Get-ChildItem -Path "$targetDirectory\$artifactName"
 } finally {
 	Trace-VstsLeavingInvocation $MyInvocation
