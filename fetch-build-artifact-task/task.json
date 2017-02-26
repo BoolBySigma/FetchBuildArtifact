@@ -47,7 +47,7 @@
         }
     ],
     "execution": {
-        "PowerShell": {
+        "PowerShell3": {
             "target": "$(currentDirectory)\\fetch.ps1",
             "argumentFormat": "",
             "workingDirectory": "$(currentDirectory)"
