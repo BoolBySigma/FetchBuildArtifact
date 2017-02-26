@@ -16,9 +16,9 @@
         {
             "name": "connectedServiceVsts",
             "type": "connectedService:Generic",
-            "label": "Service Endpoint",
+            "label": "Connection",
             "required": true,
-            "helpMarkDown": ""
+            "helpMarkDown": "Service endpoint connection to your Visual Studio Team Services account."
         },
         {
             "name": "project",
