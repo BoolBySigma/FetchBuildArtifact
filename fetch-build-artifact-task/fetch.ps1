@@ -4,7 +4,7 @@ param()
 Trace-VstsEnteringInvocation $MyInvocation
 
 $project = Get-VstsInput -Name project -Default $Env:SYSTEM_TEAMPROJECT
-$buildDefinitionId = Get-VstsInput -Name buildDefinitionId -Require -AsInt
+$definitionId = Get-VstsInput -Name buildDefinitionId -Require -AsInt
 $artifactName = Get-VstsInput -Name artifactName -Require
 $targetDirectory = Get-VstsInput -Name project -Default $Env:BUILD_SOURCESDIRECTORY
 
