@@ -36,7 +36,7 @@ try {
 
 	$buildUri = $projectUri + '/_apis/build/builds?definitions=' + $definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0'
 
-	Write-Output "Querying completed successful builds of build definition `"$definitionId`""
+	Write-Output "Querying completed successful builds of build definition `'$definitionId`'"
 
 	$buildId = ""
 	try {
