@@ -43,36 +43,36 @@ try {
 		$response = Invoke-RestMethod -Uri $buildUri -Method GET -Headers $authHeader
 		$buildId = $response.value.id
 	} catch { 
-		Write-VstsTaskError "Could not find project `"$project`". Make sure `"Allow Scripts to Access OAuth Token`" is enabled and that the project exists."
+		Write-VstsTaskError "Could not find project `'$project`'. Make sure `'Allow Scripts to Access OAuth Token`' is enabled and that the project exists."
 	}
 
 	if ([string]::IsNullOrEmpty($buildId)) {
-		Write-VstsTaskError "Could not find a completed successful build. Ensure that build definition `"$definitionId`" has a successful build."
+		Write-VstsTaskError "Could not find a completed successful build. Ensure that build definition `'$definitionId`' has a successful build."
 	} else {
-		Write-Output "Found build `"$buildId`""
+		Write-Output "Found build `'$buildId`'"
 	}
 
 	$buildArtifactUri = $projectUri + '/_apis/build/builds/' + $buildId + '/artifacts?api-version=2.0'
 
-	Write-Output "Querying build artifact `"$artifactName`""
+	Write-Output "Querying build artifact `'$artifactName`'"
 
 	$artifactUri = ""
 	try {
 		$response = Invoke-RestMethod -Uri $buildArtifactUri -Method GET -Headers $authHeader
 		$artifactUri = $response.value.Where({$_.name -eq $artifactName}).resource.downloadUrl
 	} catch {
-		Write-VstsTaskError "Could not find build `"$buildId`""
+		Write-VstsTaskError "Could not find build `'$buildId`'"
 	}
 
 	if ([string]::IsNullOrEmpty($artifactUri)) {
-		Write-VstsTaskError "Could not find build artifact `"$artifactName`""
+		Write-VstsTaskError "Could not find build artifact `'$artifactName`'"
 	} else {
-		Write-Output "Found build artifact `"$artifactName`""
+		Write-Output "Found build artifact `'$artifactName`'"
 	}
 
 	$artifactPath = Join-path $targetDirectory ($artifactName + ".zip")
 
-	Write-Output "Downloading build artifact `"$artifactName`" to $artifactPath"
+	Write-Output "Downloading build artifact `'$artifactName`' to $artifactPath"
 
 	try {
 		Invoke-WebRequest -Uri $artifactUri -OutFile $artifactPath -Headers $authHeader
