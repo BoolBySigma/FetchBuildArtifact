@@ -26,18 +26,7 @@
             "label": "Project",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
-        },
-        {
-            "name": "project1",
-            "type": "pickList",
-            "label": "Project",
-            "defaultValue": "",
-            "required": true,
-            "helpMarkDown": "Project from where to fetch the build artifact.",
-            "properties": {
-                "EditableOptions": "False"
-            }
+            "helpMarkDown": "Project from where to fetch the build artifact."
         },
         {
             "name": "buildDefinition",
@@ -68,13 +57,6 @@
         }
     ],
     "sourceDefinitions": [
-        {
-            "target": "project1",
-            "endpoint": "/_apis/projects#$(connection)",
-            "selector": "jsonpath:$.value[*].name",
-            "keySelector": "jsonpath:$.value[*].name",
-            "authKey": "$(connection)"
-        },
         {
             "target": "buildDefinition",
             "endpoint": "$(project)/_apis/build/definitions#$(connection)",
