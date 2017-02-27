@@ -22,6 +22,14 @@
         },
         {
             "name": "project",
+            "type": "string",
+            "label": "Project",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
+        },
+        {
+            "name": "project1",
             "type": "pickList",
             "label": "Project",
             "defaultValue": "",
@@ -61,7 +69,7 @@
     ],
     "sourceDefinitions": [
         {
-            "target": "project",
+            "target": "project1",
             "endpoint": "/_apis/projects#$(connection)",
             "selector": "jsonpath:$.value[*].name",
             "keySelector": "jsonpath:$.value[*].name",
