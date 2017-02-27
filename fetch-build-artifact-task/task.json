@@ -14,8 +14,8 @@
     "instanceNameFormat": "Fetch Artifact: $(artifactName)",
     "inputs": [
         {
-            "name": "connectedServiceVsts",
-            "type": "connectedService:VstsAccount",
+            "name": "connection",
+            "type": "connectedService:FetchBuildArtifact",
             "label": "Connection",
             "required": true,
             "helpMarkDown": "Service endpoint connection to your Visual Studio Team Services account."
@@ -62,17 +62,17 @@
     "sourceDefinitions": [
         {
             "target": "project",
-            "endpoint": "/_apis/projects#$(connectedServiceVsts)",
+            "endpoint": "/_apis/projects#$(connection)",
             "selector": "jsonpath:$.value[*].name",
             "keySelector": "jsonpath:$.value[*].id",
-            "authKey": "$(connectedServiceVsts)"
+            "authKey": "$(connection)"
         },
         {
             "target": "buildDefinition",
-            "endpoint": "$(project)/_apis/build/definitions#$(connectedServiceVsts)",
+            "endpoint": "$(project)/_apis/build/definitions#$(connection)",
             "selector": "jsonpath:$.value[*].name",
             "keySelector": "jsonpath:$.value[*].id",
-            "authKey": "$(connectedServiceVsts)"
+            "authKey": "$(connection)"
         }
     ],
     "execution": {

@@ -52,9 +52,9 @@
                 "ms.vss-endpoint.endpoint-types"
             ],
             "properties": {
-                "name": "VstsAccount",
-                "displayName": "VSTS Account",
-                "helpMarkDown": "**Required permissions**: Build (read), Project and team (read)<br/><br/><a href='https://www.visualstudio.com/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate'>How to create and use personal access tokens</a>.",
+                "name": "FetchBuildArtifact",
+                "displayName": "Fetch Build Artifact",
+                "helpMarkDown": "Server URL: Your VSTS account url, in format 'https://{account}.visualstudio.com, eg. 'https://fabrikam.visualstudio.com'.<br/><br/>Personal access token: Requires at least the Build (read) and Project and team (read) scope.<br/><a href='https://www.visualstudio.com/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate'>More information on how to create personal access tokens</a>.",
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
@@ -79,7 +79,7 @@
                             {
                                 "id": "password",
                                 "name": "Personal access token",
-                                "description": "Team Services personal access token. Requires at least the Marketplace (publish) scope.",
+                                "description": "Team Services personal access token. Requires at least the Build (read) and Project and team (read) scope.",
                                 "inputMode": "passwordbox",
                                 "isConfidential": true,
                                 "validation": {
