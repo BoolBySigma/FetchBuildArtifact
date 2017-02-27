@@ -19,5 +19,9 @@ Parameters include:
 * **Build Artifact Name**: Name of the artifact to fetch, eg. 'drop'.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
+## Changelog
+* **2.0.0**: Adds dropdown menus for project and build definition.
+
+
 
 Icons made by [Freepik](http://www.freepik.com) from [Flaticon](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
