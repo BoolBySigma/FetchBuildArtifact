@@ -14,13 +14,16 @@ Add a new **Fetch Build Artifacts** task from the **Utility** category...
 ![Parameters](images/parameters.png)
 Parameters include:
 * **Connection**: Service endpoint connection to your Visual Studio Team Services account.
+  To add a new connection click 'Add' to open the 'Add new Fetch Build Artifact Connection' dialog.
+  ![Create Service Endpoint](images/create_service_endpoint.png)
+  
 * **Project**: Project from where to fetch the build artifact.
 * **Build Definition**: Build definition from where to fetch build artifact.
 * **Build Artifact Name**: Name of the artifact to fetch, eg. 'drop'.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
 **Creating a New Connection**
-![Create Service Endpoint](images/create_service_endpoint.png)
+
 
 ## Changelog
 * **2.0.0**: Adds dropdown menus for project and build definition.
