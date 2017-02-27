@@ -64,7 +64,7 @@
             "target": "project",
             "endpoint": "/_apis/projects#$(connection)",
             "selector": "jsonpath:$.value[*].name",
-            "keySelector": "jsonpath:$.value[*].id",
+            "keySelector": "jsonpath:$.value[*].name",
             "authKey": "$(connection)"
         },
         {
