@@ -54,7 +54,7 @@
             "properties": {
                 "name": "FetchBuildArtifact",
                 "displayName": "Fetch Build Artifact",
-                "helpMarkDown": "<b>Server URL</b>: Your VSTS account url, eg. 'https://fabrikam.visualstudio.com'.<br/><br/><b>Personal access token</b>: Requires at least the 'Build (read)' and 'Project and team (read)' scope.<br/><br/><a href='https://www.visualstudio.com/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate'>How to create personal access tokens</a>.",
+                "helpMarkDown": "<b>Server URL</b><br/>Your VSTS account url, eg. 'https://fabrikam.visualstudio.com'.<br/><br/><b>Personal access token</b><br/>Requires at least the 'Build (read)' and 'Project and team (read)' scope.<br/><br/><a href='https://www.visualstudio.com/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate'>How to create personal access tokens</a>.",
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
