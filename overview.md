@@ -11,7 +11,7 @@ Add a new **Fetch Build Artifacts** task from the **Utility** category...
 
 ...and configure it as needed.
 
-![Parameters](images/screenshot.png)
+![Parameters](images/parameters.png)
 Parameters include:
 * **Connection**: Service endpoint connection to your Visual Studio Team Services account.
 * **Project**: Project from where to fetch the build artifact.
