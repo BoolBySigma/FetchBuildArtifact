@@ -3,7 +3,7 @@
     "name": "fetch-build-artifact",
     "friendlyName": "Fetch Build Artifacts",
     "description": "Fetch build artifacts from the server",
-    "helpMarkDown": "Requires **Allow Scripts to Access OAuth Token** to be **enabled**.",
+    "helpMarkDown": "Requires **Allow Scripts to Access OAuth Token** to be **enabled**.<br/><br>Having Problems? Please <a href='https://github.com/BoolBySigma/FetchBuildArtifact/issues'>create an issue on our Github</a> and we will try to help you.",
     "category": "Utility",
     "author": "Bool (by Sigma)",
     "version": {
