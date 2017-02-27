@@ -21,7 +21,7 @@ Click 'Add' to open the 'Add new Fetch Build Artifact Connection' dialog.
 * **Build Artifact Name**: Name of the artifact to fetch, eg. 'drop'.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
-* **Having Problems?**
+## Having Problems?
 Please [create an issue on our Github](https://github.com/BoolBySigma/FetchBuildArtifact/issues) and we will try to help you.
 
 ## Changelog
