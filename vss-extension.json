@@ -25,6 +25,11 @@
             "path": "overview.md"
         }
     },
+    "links": {
+        "support": {
+            "uri": "https://github.com/BoolBySigma/FetchBuildArtifact/issues"
+        }
+    },
     "files": [
         {
             "path": "fetch-build-artifact-task"
