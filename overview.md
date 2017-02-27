@@ -22,6 +22,6 @@ Click 'Add' to open the 'Add new Fetch Build Artifact Connection' dialog.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
 ## Changelog
-* **2.0.0**: Adds dropdown menus for build definition.
+* **2.0.0**: Adds dropdown menu for build definition.
 
 Icons made by [Freepik](http://www.freepik.com) from [Flaticon](http://www.flaticon.com) is licensed by [CC 3.0 BY](http://creativecommons.org/licenses/by/3.0/)
