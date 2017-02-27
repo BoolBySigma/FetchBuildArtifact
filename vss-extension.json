@@ -54,10 +54,6 @@
             "properties": {
                 "name": "VstsAccount",
                 "displayName": "VSTS Account",
-                "url": {
-                    "displayName": "Vsts Account Url",
-                    "value": "$(System.TeamFoundationCollectionUri)"
-                },
                 "helpMarkDown": "",
                 "authenticationSchemes": [
                     {
