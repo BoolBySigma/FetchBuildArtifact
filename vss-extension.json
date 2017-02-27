@@ -56,7 +56,7 @@
                 "displayName": "VSTS Account",
                 "url": {
                     "displayName": "Vsts Account Url",
-                    "value": "https://fernfrost.visualstudio.com"
+                    "value": "$(System.TeamFoundationCollectionUri)"
                 },
                 "helpMarkDown": "",
                 "authenticationSchemes": [
