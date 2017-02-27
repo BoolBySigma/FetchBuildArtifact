@@ -48,7 +48,7 @@
             "label": "Build Artifact Name",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Name of the artifact to fetch, eg. \"drop\"."
+            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
         },
         {
             "name": "targetDirectory",
@@ -56,7 +56,7 @@
             "label": "Target Folder",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory)."
+            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>."
         }
     ],
     "sourceDefinitions": [
