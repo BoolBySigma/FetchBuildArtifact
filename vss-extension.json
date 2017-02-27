@@ -54,7 +54,7 @@
             "properties": {
                 "name": "VstsAccount",
                 "displayName": "VSTS Account",
-                "helpMarkDown": "",
+                "helpMarkDown": "**Required permissions**: Build (read), Project and team (read)<br/><br/><a href='https://www.visualstudio.com/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate'>How to create and use personal access tokens</a>.",
                 "authenticationSchemes": [
                     {
                         "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
