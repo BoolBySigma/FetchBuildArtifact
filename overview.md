@@ -19,11 +19,8 @@ Parameters include:
 * **Build Artifact Name**: Name of the artifact to fetch, eg. 'drop'.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
-
-
+**Creating a New Connection**
 ![Create Service Endpoint](images/create_service_endpoint.png)
-
-
 
 ## Changelog
 * **2.0.0**: Adds dropdown menus for project and build definition.
