@@ -18,7 +18,7 @@ try {
 
 	# Print parameters
 	$parameters = @()
-	$parameters += New-Object PSObject -Property @{Parameter="Project"; Value=$project}
+	$parameters += New-Object PSObject -Property @{Parameter="Project Id"; Value=$project}
 	$parameters += New-Object PSObject -Property @{Parameter="Project Uri"; Value=$projectUri}
 	$parameters += New-Object PSObject -Property @{Parameter="Build Definition Id"; Value=$definitionId}
 	$parameters += New-Object PSObject -Property @{Parameter="Build Artifact Name"; Value=$artifactName}
