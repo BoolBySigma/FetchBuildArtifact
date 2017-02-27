@@ -9,11 +9,7 @@ $artifactName = Get-VstsInput -Name artifactName -Require
 $targetDirectory = Get-VstsInput -Name targetDirectory -Default $Env:BUILD_SOURCESDIRECTORY
 
 try {
-	# Validate build definition id
-	if ($definitionId -eq 0) {
-		Write-VstsTaskError "Invalid Build Definition Id. Must be a numerical value and an existing build definition."
-	}
-
+	# Validate target directory
 	if (!(Test-Path $targetDirectory -PathType Container)) {
 		Write-VstsTaskError "Invalid Target Directory. The path is not a directory or does not exist."
 	}
