@@ -15,18 +15,11 @@
     "inputs": [
         {
             "name": "connectedServiceVsts",
-            "type": "connectedService:Generic",
+            "type": "connectedService:VstsAccount",
             "label": "Connection",
             "required": true,
             "helpMarkDown": "Service endpoint connection to your Visual Studio Team Services account."
         },
-		{
-			"name": "connectedServiceName",
-			"type": "connectedService:VstsMarketplacePublishing",
-			"label": "VSTS Marketplace connection",
-			"required": true,
-			"helpMarkDown": "Service endpoint connection to install the extension."
-		},
         {
             "name": "project",
             "type": "pickList",
