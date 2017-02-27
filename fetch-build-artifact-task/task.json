@@ -59,7 +59,7 @@
     "sourceDefinitions": [
         {
             "target": "buildDefinition",
-            "endpoint": "$(project)/_apis/build/definitions#$(connection)",
+            "endpoint": "$(project)/_apis/build/definitions?queryOrder=3#$(connection)",
             "selector": "jsonpath:$.value[*].name",
             "keySelector": "jsonpath:$.value[*].id",
             "authKey": "$(connection)"
