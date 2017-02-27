@@ -14,8 +14,8 @@ Add a new **Fetch Build Artifacts** task from the **Utility** category...
 ![Parameters](images/screenshot.png)
 Parameters include:
 * **Connection**: Service endpoint connection to your Visual Studio Team Services account.
-* **Project**: Project from where to fetch the build artifact..
-* **Build Definition**: .
+* **Project**: Project from where to fetch the build artifact.
+* **Build Definition**: Build definition from where to fetch build artifact.
 * **Build Artifact Name**: Name of the artifact to fetch, eg. 'drop'.
 * **Target Directory**: The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory).
 
