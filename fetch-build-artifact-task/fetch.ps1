@@ -4,12 +4,16 @@ param()
 Trace-VstsEnteringInvocation $MyInvocation
 
 $project = Get-VstsInput -Name project -Default $Env:SYSTEM_TEAMPROJECT
-$definitionId = Get-VstsInput -Name buildDefinition -Require -AsInt
+$definitionId = Get-VstsInput -Name buildDefinitionId -Require -AsInt
 $artifactName = Get-VstsInput -Name artifactName -Require
 $targetDirectory = Get-VstsInput -Name targetDirectory -Default $Env:BUILD_SOURCESDIRECTORY
 
 try {
-	# Validate target directory
+	# Validate build definition id
+	if ($definitionId -eq 0) {
+		Write-VstsTaskError "Invalid Build Definition Id. Must be a numerical value and an existing build definition."
+	}
+
 	if (!(Test-Path $targetDirectory -PathType Container)) {
 		Write-VstsTaskError "Invalid Target Directory. The path is not a directory or does not exist."
 	}
