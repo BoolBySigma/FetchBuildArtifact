@@ -19,7 +19,7 @@
             "label": "Project",
             "defaultValue": "$(System.TeamProject)",
             "required": false,
-            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using $(System.TeamProject)."
+            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>."
         },
         {
             "name": "buildDefinitionId",
@@ -35,7 +35,7 @@
             "label": "Build Artifact Name",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Name of the artifact to fetch, eg. \"drop\"."
+            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
         },
         {
             "name": "targetDirectory",
@@ -43,7 +43,7 @@
             "label": "Target Folder",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using $(Build.SourcesDirectory)."
+            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>."
         }
     ],
     "execution": {
