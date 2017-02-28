@@ -26,7 +26,8 @@
             "label": "Project",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Project from where to fetch the build artifact."
+            "helpMarkDown": "Project from where to fetch the build artifact.",
+            "visibleRule": "connection!=\"\""
         },
         {
             "name": "buildDefinition",
