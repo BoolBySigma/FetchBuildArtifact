@@ -34,6 +34,8 @@ async function run() {
             task.debug('targetDirectory=' + process.env['BUILD_SOURCESDIRECTORY']);
         }
 
+        let projectUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'] + project;
+        task.debug('projectUri=' + projectUri);
 
 
         //task.setResult(task.TaskResult.Failed, "Martin Nilsson");
