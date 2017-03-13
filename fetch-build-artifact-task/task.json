@@ -47,10 +47,9 @@
         }
     ],
     "execution": {
-        "PowerShell3": {
-            "target": "$(currentDirectory)\\fetch.ps1",
-            "argumentFormat": "",
-            "workingDirectory": "$(currentDirectory)"
+        "Node": {
+            "target": "index.js",
+            "argumentFormat": ""
         }
     }
 }
