@@ -1,5 +1,6 @@
-import task = require('vsts-task-lib/task');
-import process = require('process');
+import * as task from 'vsts-task-lib/task';
+import * as process from 'process';
+import * as request from 'request';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -36,6 +37,17 @@ async function run() {
 
         let projectUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'] + project;
         task.debug('projectUri=' + projectUri);
+
+        let authHeader = {
+            'auth': {
+                'bearer': 'bearerToken'
+            }
+        };
+
+        let buildUri = projectUri + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
+        request.get(buildUri, authHeader).on('response', function (response) {
+            console.log(response);
+        });
 
 
         //task.setResult(task.TaskResult.Failed, "Martin Nilsson");
