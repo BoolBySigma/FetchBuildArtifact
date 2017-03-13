@@ -44,7 +44,7 @@ async function run() {
             }
         };
 
-        let buildPath = project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
+        let buildPath = '/' + project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
 
         var options = {
             host: 'bool1sandbox.visualstudio.com',
