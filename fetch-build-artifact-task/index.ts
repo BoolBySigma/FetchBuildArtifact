@@ -40,7 +40,7 @@ async function run() {
 
         let authHeader = {
             'auth': {
-                'bearer': 'bearerToken'
+                'bearer': process.env['SYSTEM_ACCESSTOKEN']
             }
         };
 
