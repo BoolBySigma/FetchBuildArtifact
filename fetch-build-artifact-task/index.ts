@@ -39,8 +39,8 @@ async function run() {
         task.debug('projectUri=' + projectUri);
 
         let authHeader = {
-            'auth': {
-                'bearer': process.env['SYSTEM_ACCESSTOKEN']
+            'Authorization': {
+                'Bearer': process.env['SYSTEM_ACCESSTOKEN']
             }
         };
 
