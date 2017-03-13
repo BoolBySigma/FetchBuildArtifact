@@ -47,7 +47,7 @@ async function run() {
         let buildPath = project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
 
         var options = {
-            host: accountUri,
+            host: 'bool1sandbox.visualstudio.com',
             path: buildPath,
             headers: authHeader
         };
