@@ -1,6 +1,6 @@
 import * as task from 'vsts-task-lib/task';
 import * as process from 'process';
-import * as request from 'request';
+import * as https from 'https';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -35,8 +35,8 @@ async function run() {
             task.debug('targetDirectory=' + process.env['BUILD_SOURCESDIRECTORY']);
         }
 
-        let projectUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'] + project;
-        task.debug('projectUri=' + projectUri);
+        let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
+        task.debug('accountUri=' + accountUri);
 
         let authHeader = {
             'Authorization': {
@@ -44,17 +44,43 @@ async function run() {
             }
         };
 
-        let buildUri = projectUri + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
-        request.get(buildUri, authHeader).on('response', function (response) {
-            console.log(response);
+        let buildPath = project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
+
+        var options = {
+            host: accountUri,
+            path: buildPath,
+            headers: authHeader
+        };
+
+        await getBuilds(options).catch((error) => {
+            console.log(error);
+        }).then((buildId) => {
+            console.log('build id:');
+            console.log(buildId);
         });
-
-
-        //task.setResult(task.TaskResult.Failed, "Martin Nilsson");
-        //task.error(process.env['SYSTEM_TEAMPROJECT']);
     } catch (error) {
         task.setResult(task.TaskResult.Failed, error.message);
     }
+}
+
+async function getBuilds(options: object){
+    return get(options).then((body: any) => {
+        return body.value.id;
+    })
+}
+
+async function get(options: object) {
+    return new Promise((resolve, reject) => {
+        const request = https.get(options, (response) => {
+            if (response.statusCode < 200 || response.statusCode > 299) {
+                reject(new Error('Failed to load page, status code: ' + response.statusCode));
+            }
+            const body = [];
+            response.on('data', (chunk) => body.push(chunk));
+            response.on('end', () => resolve(body.join('')));
+        });
+        request.on('error', (err) => reject(err))
+    })
 }
 
 run();
