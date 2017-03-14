@@ -74,13 +74,12 @@ async function run() {
         console.log('Querying completed successful builds of build definition\'' + definitionId + '\'');
 
         await requestPromise(buildsOptions)
-            .then(function (builds: any[]) {
-                if (builds.length === 0){
+            .then(function (build: any) {
+                if (!build){
                     task.debug('no builds found for project');
                     throw new Error('Could not find project \'' + project + '\'. Make sure \'Allow Scripts to Access OAuth Token\' is enabled and that the project exists.');
                 }
 
-                let build = builds[0];
                 task.debug('build:');
                 task.debug(JSON.stringify(build));
 
