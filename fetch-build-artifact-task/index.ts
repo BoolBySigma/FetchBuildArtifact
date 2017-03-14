@@ -157,7 +157,7 @@ async function run() {
                     request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
-                            extract(artifactPath, { dir: targetDirectory }, function (err) {
+                            extract(artifactPath, { dir: path.join(targetDirectory, artifactName) }, function (err) {
                                 if (err) {
                                     reject(err);
                                 }
