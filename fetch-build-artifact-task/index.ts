@@ -136,7 +136,7 @@ async function run() {
 
                 return artifactUri;
             })
-            .then(async function (artifactUri: string) {
+            .then(function (artifactUri: string) {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
                 console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
@@ -153,7 +153,7 @@ async function run() {
                     json: true
                 };
 
-                await request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath))
+                request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath))
                 
                 fs.createReadStream(artifactPath).pipe(unzip.Extract({ path: path.join(targetDirectory, artifactName) }));
             })
