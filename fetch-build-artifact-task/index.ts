@@ -153,21 +153,24 @@ async function run() {
                     json: true
                 };
 
-                request(artifactUri, buildArtifactFileOptions)
-                    .pipe(fs.createWriteStream(artifactPath))
-                    .on('finish', function (a, b, c) {
-                        task.debug(a);
-                        task.debug(b);
-                        task.debug(c);
-                        extract(artifactPath, { dir: targetDirectory }, function (err) {
-                            console.log(err);
-                            console.log('Done');
+                return new Promise(function (resolve, reject) {
+                    request(artifactUri, buildArtifactFileOptions)
+                        .pipe(fs.createWriteStream(artifactPath))
+                        .on('finish', function () {
+                            extract(artifactPath, { dir: targetDirectory }, function (err) {
+                                if (err) {
+                                    reject(err);
+                                }
+
+                                resolve(artifactPath);
+                                console.log('Done');
+                            });
                         });
-                    });
+                });
 
             })
             .then(function (results: any) {
-                console.log('Done');
+                console.log('Finished');
             });
 
     } catch (error) {
