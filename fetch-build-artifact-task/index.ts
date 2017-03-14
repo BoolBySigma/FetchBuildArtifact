@@ -51,6 +51,7 @@ async function run() {
         };
 
         let buildsUri = projectUri + '/_apis/build/builds';
+        task.debug('buildsUri=' + buildsUri);
 
         //let buildPath = '/' + project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
 
@@ -66,6 +67,8 @@ async function run() {
             headers: authHeader,
             json: true
         };
+        task.debug('buildsOption:');
+        task.debug(JSON.stringify(buildsOptions));
 
         await requestPromise(buildsOptions)
             .then(function (build) {
