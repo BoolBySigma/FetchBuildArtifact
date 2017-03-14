@@ -4,7 +4,7 @@ import * as request from 'request';
 import * as requestPromise from 'request-promise';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as unzip from 'unzip';
+import * as extract from 'extract-zip';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -153,8 +153,17 @@ async function run() {
                     json: true
                 };
 
-                request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath));
-                fs.createReadStream(artifactPath).pipe(unzip.Extract({ path: path.join(targetDirectory, artifactName) }));
+                request(artifactUri, buildArtifactFileOptions)
+                    .pipe(fs.createWriteStream(artifactPath))
+                    .on('finish', function (a, b, c) {
+                        task.debug(a);
+                        task.debug(b);
+                        task.debug(c);
+                        extract(artifactPath, { dir: path.join(targetDirectory, artifactName) }, function (err) {
+                            console.log(err);
+                            console.log('Done');
+                        });
+                    });
 
             })
             .then(function (results: any) {
