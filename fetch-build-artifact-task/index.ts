@@ -75,22 +75,52 @@ async function run() {
 
         await requestPromise(buildsOptions)
             .then(function (builds: any) {
-                if (builds.value.length === 0){
-                    task.debug('no builds found for project');
-                    throw new Error('Could not find project \'' + project + '\'. Make sure \'Allow Scripts to Access OAuth Token\' is enabled and that the project exists.');
-                }
-
                 let build = builds.value[0];
+
+                if (!build) {
+                    task.debug('build not found')
+                    return null;
+                }
 
                 task.debug('build:');
                 task.debug(JSON.stringify(build));
 
                 return build.id;
             })
-            .then(function(buildId){
-                console.log(buildId);
+            .catch(function (err) {
+                throw new Error('Could not find project \'' + project + '\'. Make sure \'Allow Scripts to Access OAuth Token\' is enabled and that the project exists.');
             })
-            .then(function(){
+            .then(function (buildId) {
+                task.debug('buildId=' + buildId);
+                if (!buildId) {
+                    throw new Error('Could not find a completed successful build. Ensure that build definition \'' + definitionId + '\' has a successful build.');
+                }
+
+                console.log('Found build \'$buildId\'');
+
+                let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts?api-version=2.0'
+
+                var buildArtifactOptions = {
+                    uri: buildArtifactUri,
+                    auth: {
+                        'bearer': process.env['SYSTEM_ACCESSTOKEN']
+                    },
+                    qs: {
+                        'api-version': '2.0'
+                    },
+                    headers: authHeader,
+                    json: true
+                };
+                task.debug('buildArtifactOptions:');
+                task.debug(JSON.stringify(buildArtifactOptions));
+
+                console.log('Querying build artifact \'' + artifactName + '\'');
+                return requestPromise(buildArtifactOptions);
+            })
+            .then(function(artifacts: any){
+                console.log(artifacts);
+            })
+            .then(function () {
                 console.log('Done');
             });
 
