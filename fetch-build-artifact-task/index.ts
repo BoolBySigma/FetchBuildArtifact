@@ -57,6 +57,9 @@ async function run() {
 
         var buildsOptions = {
             uri: buildsUri,
+            auth: {
+                'bearer': process.env['SYSTEM_ACCESSTOKEN']
+            },
             qs: {
                 definitions: definitionId,
                 statusFilter: 'completed',
