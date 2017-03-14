@@ -64,7 +64,7 @@ async function run() {
                 definitions: definitionId,
                 statusFilter: 'completed',
                 resultFilter: 'succeeded',
-                top: 1,
+                $top: 1,
                 'api-version': '2.0'
             },
             headers: authHeader,
