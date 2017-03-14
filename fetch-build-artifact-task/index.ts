@@ -159,7 +159,7 @@ async function run() {
                         task.debug(a);
                         task.debug(b);
                         task.debug(c);
-                        extract(artifactPath, { dir: path.join(targetDirectory, artifactName) }, function (err) {
+                        extract(artifactPath, { dir: targetDirectory }, function (err) {
                             console.log(err);
                             console.log('Done');
                         });
