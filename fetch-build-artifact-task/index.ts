@@ -142,7 +142,7 @@ async function run() {
                 console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
 
                 var buildArtifactFileOptions = {
-                    uri: artifactPath,
+                    uri: artifactUri,
                     auth: {
                         'bearer': process.env['SYSTEM_ACCESSTOKEN']
                     },
