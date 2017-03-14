@@ -118,8 +118,8 @@ async function run() {
                 console.log('Querying build artifact \'' + artifactName + '\'');
                 return requestPromise(buildArtifactOptions);
             })
-            .then(function(results: any){
-                if (results.count === '0'){
+            .then(function (results: any) {
+                if (results.count === '0') {
                     throw new Error('Could not find build');
                 }
 
@@ -127,7 +127,7 @@ async function run() {
 
                 let artifact = artifacts.find(a => a.name === artifactName);
 
-                if (!artifact){
+                if (!artifact) {
                     throw new Error('Could not find build artifact \'' + artifactName + '\'');
                 }
 
@@ -140,7 +140,7 @@ async function run() {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
                 console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
-                
+
                 var buildArtifactFileOptions = {
                     uri: artifactPath,
                     auth: {
@@ -153,11 +153,11 @@ async function run() {
                     json: true
                 };
 
-                request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath))
-                
+                request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath));
                 fs.createReadStream(artifactPath).pipe(unzip.Extract({ path: path.join(targetDirectory, artifactName) }));
+
             })
-            .then(function(results: any){
+            .then(function (results: any) {
                 console.log('Done');
             });
 
