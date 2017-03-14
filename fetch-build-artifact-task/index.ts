@@ -2,6 +2,9 @@ import * as task from 'vsts-task-lib/task';
 import * as process from 'process';
 import * as https from 'https';
 
+import * as request from 'request';
+import * as requestPromise from 'request-promise';
+
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
         return true;
@@ -38,18 +41,46 @@ async function run() {
         let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
         task.debug('accountUri=' + accountUri);
 
+        let projectUri = accountUri + project;
+        task.debug('projectUri=' + projectUri);
+
         let authHeader = {
             'Authorization': {
                 'Bearer': process.env['SYSTEM_ACCESSTOKEN']
             }
         };
 
-        let buildPath = '/' + project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
+        let buildsUri = projectUri + '/_apis/build/builds';
 
-        var options = {
+        //let buildPath = '/' + project + '/_apis/build/builds?definitions=' + definitionId + '&statusFilter=completed&resultFilter=succeeded&$top=1&api-version=2.0';
+
+        var buildsOptions = {
+            uri: buildsUri,
+            qs: {
+                definitions: definitionId,
+                statusFilter: 'completed',
+                resultFilter: 'succeeded',
+                top: 1,
+                'api-version': '2.0'
+            },
+            headers: authHeader,
+            json: true
+        };
+
+        await requestPromise(buildsOptions)
+            .then(function (build) {
+                console.log(build);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+
+        /*var options = {
             host: 'bool1sandbox.visualstudio.com',
             path: buildPath,
-            headers: authHeader
+            headers: authHeader,
+            method: 'GET'
         };
 
         await getBuilds(options).catch((error) => {
@@ -57,13 +88,13 @@ async function run() {
         }).then((buildId) => {
             console.log('build id:');
             console.log(buildId);
-        });
+        });*/
     } catch (error) {
         task.setResult(task.TaskResult.Failed, error.message);
     }
 }
 
-async function getBuilds(options: object){
+async function getBuilds(options: object) {
     return get(options).then((body: any) => {
         return body.value.id;
     })
