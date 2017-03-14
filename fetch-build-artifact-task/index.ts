@@ -1,9 +1,9 @@
 import * as task from 'vsts-task-lib/task';
 import * as process from 'process';
-import * as https from 'https';
-
 import * as request from 'request';
 import * as requestPromise from 'request-promise';
+import * as path from 'path';
+import * as fs from 'fs';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -96,7 +96,7 @@ async function run() {
                     throw new Error('Could not find a completed successful build. Ensure that build definition \'' + definitionId + '\' has a successful build.');
                 }
 
-                console.log('Found build \'$buildId\'');
+                console.log('Found build \'' + buildId + '\'');
 
                 let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts?api-version=2.0'
 
@@ -117,11 +117,44 @@ async function run() {
                 console.log('Querying build artifact \'' + artifactName + '\'');
                 return requestPromise(buildArtifactOptions);
             })
-            .then(function(artifacts: any){
-                console.log(artifacts);
+            .then(function(results: any){
+                if (results.count === '0'){
+                    throw new Error('Could not find build');
+                }
+
+                let artifacts: any[] = results.value;
+
+                let artifact = artifacts.find(a => a.name === artifactName);
+
+                if (!artifact){
+                    throw new Error('Could not find build artifact \'' + artifactName + '\'');
+                }
+
+                console.log('Found build artifact \'' + artifactName + '\'');
+                let artifactUri: string = artifact.resource.downloadUrl;
+
+                return artifactUri;
             })
-            .then(function () {
-                console.log('Done');
+            .then(function (artifactUri: string) {
+                let artifactPath = path.join(targetDirectory, artifactName + '.zip');
+
+                console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
+                
+                var buildArtifactFileOptions = {
+                    uri: artifactPath,
+                    auth: {
+                        'bearer': process.env['SYSTEM_ACCESSTOKEN']
+                    },
+                    qs: {
+                        'api-version': '2.0'
+                    },
+                    headers: authHeader,
+                    json: true
+                };
+                return request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath));
+            })
+            .then(function(results: any){
+                console.log(results);
             });
 
     } catch (error) {
