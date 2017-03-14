@@ -4,6 +4,7 @@ import * as request from 'request';
 import * as requestPromise from 'request-promise';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as unzip from 'unzip';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -135,7 +136,7 @@ async function run() {
 
                 return artifactUri;
             })
-            .then(function (artifactUri: string) {
+            .then(async function (artifactUri: string) {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
                 console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
@@ -151,10 +152,13 @@ async function run() {
                     headers: authHeader,
                     json: true
                 };
-                return request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath));
+
+                await request(artifactUri, buildArtifactFileOptions).pipe(fs.createWriteStream(artifactPath))
+                
+                fs.createReadStream(artifactPath).pipe(unzip.Extract({ path: path.join(targetDirectory, artifactName) }));
             })
             .then(function(results: any){
-                console.log(results);
+                console.log('Done');
             });
 
     } catch (error) {
