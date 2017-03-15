@@ -158,6 +158,7 @@ async function run() {
                     request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
+                            console.log('done piping');
                             resolve(artifactPath);
                         });
                 });
