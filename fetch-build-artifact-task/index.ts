@@ -165,10 +165,10 @@ async function run() {
             })
             .then(function (artifactPath: string) {
                 console.log('unzipping');
-                return decompress(artifactPath, targetDirectory).then(files => {
-                    console.log(artifactPath);
-                    console.log('Finished');
-                });
+                return decompress(artifactPath, targetDirectory);
+            })
+            .then(function(){
+                console.log('Finished');
             });
 
     } catch (error) {
