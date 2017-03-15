@@ -153,23 +153,22 @@ async function run() {
                     json: true
                 };
 
-                return new Promise(function(resolve, reject){
+                return new Promise(function (resolve, reject) {
 
-                request(artifactUri, buildArtifactFileOptions)
+                    request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
                             resolve(artifactPath);
-                            /*return decompress(artifactPath, targetDirectory).then(files => {
-                                console.log('Done');
-                                resolve(artifactPath);
-                            });*/
                         });
                 });
 
             })
-            .then(function (results: any) {
-                console.log(results);
-                console.log('Finished');
+            .then(function (artifactPath: string) {
+                console.log('unzipping');
+                return decompress(artifactPath, targetDirectory).then(files => {
+                    console.log(artifactPath);
+                    console.log('Finished');
+                });
             });
 
     } catch (error) {
