@@ -155,8 +155,8 @@ async function run() {
 
                 await request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
-                        .on('finish', function () {
-                            decompress(artifactPath, targetDirectory).then(files => {
+                        .on('finish', async function () {
+                            await decompress(artifactPath, targetDirectory).then(files => {
                                 console.log('Done');
                             });
                         });
