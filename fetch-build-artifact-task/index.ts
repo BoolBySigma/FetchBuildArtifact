@@ -1,7 +1,7 @@
 import * as task from 'vsts-task-lib/task';
 import * as process from 'process';
 import * as request from 'request';
-import * as requestPromise from 'request-promise';
+import * as rpn from 'request-promise-native';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as decompress from 'decompress';
@@ -74,7 +74,7 @@ async function run() {
 
         console.log('Querying completed successful builds of build definition\'' + definitionId + '\'');
 
-        await requestPromise(buildsOptions)
+        await rpn(buildsOptions)
             .then(function (builds: any) {
                 let build = builds.value[0];
 
@@ -116,7 +116,7 @@ async function run() {
                 task.debug(JSON.stringify(buildArtifactOptions));
 
                 console.log('Querying build artifact \'' + artifactName + '\'');
-                return requestPromise(buildArtifactOptions);
+                return rpn(buildArtifactOptions);
             })
             .then(function (results: any) {
                 if (results.count === '0') {
@@ -158,9 +158,9 @@ async function run() {
                 request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
-                            decompress(artifactPath, targetDirectory).then(files => {
+                            return decompress(artifactPath, targetDirectory).then(files => {
                                 console.log('Done');
-                                return resolve(artifactPath);
+                                resolve(artifactPath);
                             });
                         });
                 });
