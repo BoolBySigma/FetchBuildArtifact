@@ -136,7 +136,7 @@ async function run() {
 
                 return artifactUri;
             })
-            .then(async function (artifactUri: string) {
+            .then(function (artifactUri: string) {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
                 console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
@@ -153,13 +153,17 @@ async function run() {
                     json: true
                 };
 
-                await request(artifactUri, buildArtifactFileOptions)
+                return new Promise(function(resolve, reject){
+
+                request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
-                        .on('finish', async function () {
-                            await decompress(artifactPath, targetDirectory).then(files => {
+                        .on('finish', function () {
+                            decompress(artifactPath, targetDirectory).then(files => {
                                 console.log('Done');
+                                return resolve(artifactPath);
                             });
                         });
+                });
 
             })
             .then(function (results: any) {
