@@ -174,9 +174,6 @@ async function run() {
                 let zip = new admZip(artifactPath);
                 zip.extractAllTo(targetDirectory, true);
                 console.log('Extraction completed');
-            })
-            .then(function () {
-                console.log('Finished');
             });
 
     } catch (error) {
