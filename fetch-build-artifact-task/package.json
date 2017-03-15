@@ -17,12 +17,11 @@
   },
   "dependencies": {
     "@types/node": "^7.0.8",
-    "extract-zip": "^1.6.0",
+    "decompress": "^4.0.0",
     "path": "^0.12.7",
     "process": "^0.11.9",
     "request": "^2.81.0",
     "request-promise": "^4.1.1",
-    "unzip": "^0.1.11",
     "vsts-task-lib": "^1.1.0"
   }
 }

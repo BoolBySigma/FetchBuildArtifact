@@ -4,7 +4,7 @@ import * as request from 'request';
 import * as requestPromise from 'request-promise';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as extract from 'extract-zip';
+import * as decompress from 'decompress';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -157,11 +157,7 @@ async function run() {
                     request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
-                            extract(artifactPath, { dir: path.join(targetDirectory, artifactName) }, function (err) {
-                                if (err) {
-                                    reject(err);
-                                }
-
+                            decompress(artifactPath, targetDirectory).then(files => {
                                 resolve(artifactPath);
                                 console.log('Done');
                             });
