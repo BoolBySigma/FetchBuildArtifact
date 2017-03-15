@@ -39,6 +39,11 @@ async function run() {
             task.debug('targetDirectory=' + process.env['BUILD_SOURCESDIRECTORY']);
         }
 
+        console.log('Project\t\t\t: ' + project);
+        console.log('Build Definition Id\t: ' + buildDefinitionId);
+        console.log('Build Artifact Name\t: ' + artifactName);
+        console.log('Target Directory\t\t: ' + targetDirectory);
+
         let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
         task.debug('accountUri=' + accountUri);
 
@@ -72,7 +77,7 @@ async function run() {
         task.debug('buildsOption:');
         task.debug(JSON.stringify(buildsOptions));
 
-        console.log('Querying completed successful builds of build definition\'' + definitionId + '\'');
+        console.log('Querying completed successful builds of build definition \'' + definitionId + '\'');
 
         await rpn(buildsOptions)
             .then(function (builds: any) {
@@ -153,7 +158,7 @@ async function run() {
 
                 return new Promise(function (resolve, reject) {
                     
-                    console.log('Downloading build artifact\'' + artifactName + '\' to ' + artifactPath);
+                    console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
 
                     request(artifactUri, downloadOptions)
                         .pipe(fs.createWriteStream(artifactPath))
@@ -163,7 +168,7 @@ async function run() {
                             reject('Could not download build artifact from ' + artifactUri);
                         })
                         .on('finish', function () {
-                            task.debug('download finished');
+                            console.log('Download completed');
                             resolve(artifactPath);
                         });
                 });
@@ -173,7 +178,7 @@ async function run() {
                 console.log('Extracting ' + artifactPath + ' to ' + path.join(targetDirectory, artifactName));
                 let zip = new admZip(artifactPath);
                 zip.extractAllTo(targetDirectory, true);
-                task.debug('extracting finished');
+                console.log('Extraction completed');
             })
             .then(function () {
                 console.log('Finished');
