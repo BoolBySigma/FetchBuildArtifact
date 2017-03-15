@@ -153,16 +153,13 @@ async function run() {
                     json: true
                 };
 
-                return new Promise(function (resolve, reject) {
-                    request(artifactUri, buildArtifactFileOptions)
+                request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
                             decompress(artifactPath, targetDirectory).then(files => {
-                                resolve(artifactPath);
                                 console.log('Done');
                             });
                         });
-                });
 
             })
             .then(function (results: any) {
