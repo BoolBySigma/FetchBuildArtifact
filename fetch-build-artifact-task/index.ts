@@ -4,7 +4,7 @@ import * as request from 'request';
 import * as rpn from 'request-promise-native';
 import * as path from 'path';
 import * as fs from 'fs';
-import * as decompress from 'decompress';
+import * as admZip from 'adm-zip';
 
 function stringIsNullOrEmpty(val: string): boolean {
     if (val === undefined || val === null || val.trim() === '') {
@@ -166,7 +166,9 @@ async function run() {
             })
             .then(function (artifactPath: string) {
                 console.log('unzipping');
-                return decompress(artifactPath, targetDirectory);
+                let zip = new admZip(artifactPath);
+                zip.extractAllTo(targetDirectory, true);
+                console.log('done unzipping');
             })
             .then(function(){
                 console.log('Finished');
