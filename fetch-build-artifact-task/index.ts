@@ -158,15 +158,17 @@ async function run() {
                 request(artifactUri, buildArtifactFileOptions)
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('finish', function () {
-                            return decompress(artifactPath, targetDirectory).then(files => {
+                            resolve(artifactPath);
+                            /*return decompress(artifactPath, targetDirectory).then(files => {
                                 console.log('Done');
                                 resolve(artifactPath);
-                            });
+                            });*/
                         });
                 });
 
             })
             .then(function (results: any) {
+                console.log(results);
                 console.log('Finished');
             });
 
