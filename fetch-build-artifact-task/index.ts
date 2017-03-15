@@ -39,11 +39,6 @@ async function run() {
             task.debug('targetDirectory=' + process.env['BUILD_SOURCESDIRECTORY']);
         }
 
-        console.log('Project\t\t\t: ' + project);
-        console.log('Build Definition Id\t: ' + buildDefinitionId);
-        console.log('Build Artifact Name\t: ' + artifactName);
-        console.log('Target Directory\t\t: ' + targetDirectory);
-
         let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
         task.debug('accountUri=' + accountUri);
 
