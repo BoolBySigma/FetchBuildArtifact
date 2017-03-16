@@ -13,6 +13,25 @@ function stringIsNullOrEmpty(val: string): boolean {
     return false;
 };
 
+function getRequestOptions(options: any) {
+    var baseOptions = {
+        auth: {
+            bearer: process.env['SYSTEM_ACCESSTOKEN']
+        },
+        headers: {
+            Authorization: {
+                Bearer: process.env['SYSTEM_ACCESSTOKEN']
+            }
+        },
+        json: true,
+        qs: {}
+    }
+    options = Object.assign(baseOptions, options);
+    options.qs = Object.assign(options.qs, { 'api-version': '2.0' });
+
+    return options;
+}
+
 async function run() {
     try {
         let project = task.getInput('project', false);
@@ -45,30 +64,18 @@ async function run() {
         let projectUri = accountUri + project;
         task.debug('projectUri=' + projectUri);
 
-        let authHeader = {
-            'Authorization': {
-                'Bearer': process.env['SYSTEM_ACCESSTOKEN']
-            }
-        };
-
         let buildsUri = projectUri + '/_apis/build/builds';
         task.debug('buildsUri=' + buildsUri);
 
-        var buildsOptions = {
+        var buildsOptions = getRequestOptions({
             uri: buildsUri,
-            auth: {
-                'bearer': process.env['SYSTEM_ACCESSTOKEN']
-            },
             qs: {
                 definitions: definitionId,
                 statusFilter: 'completed',
                 resultFilter: 'succeeded',
-                $top: 1,
-                'api-version': '2.0'
-            },
-            headers: authHeader,
-            json: true
-        };
+                $top: 1
+            }
+        });
         task.debug('buildsOption:');
         task.debug(JSON.stringify(buildsOptions));
 
@@ -101,17 +108,7 @@ async function run() {
 
                 let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts?api-version=2.0'
 
-                var buildArtifactOptions = {
-                    uri: buildArtifactUri,
-                    auth: {
-                        'bearer': process.env['SYSTEM_ACCESSTOKEN']
-                    },
-                    qs: {
-                        'api-version': '2.0'
-                    },
-                    headers: authHeader,
-                    json: true
-                };
+                var buildArtifactOptions = getRequestOptions({ uri: buildArtifactUri });
                 task.debug('buildArtifactOptions:');
                 task.debug(JSON.stringify(buildArtifactOptions));
 
@@ -139,20 +136,10 @@ async function run() {
             .then(function (artifactUri: string) {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
-                var downloadOptions = {
-                    uri: artifactUri,
-                    auth: {
-                        'bearer': process.env['SYSTEM_ACCESSTOKEN']
-                    },
-                    qs: {
-                        'api-version': '2.0'
-                    },
-                    headers: authHeader,
-                    json: true
-                };
+                var downloadOptions = getRequestOptions({ uri: artifactUri });
 
                 return new Promise(function (resolve, reject) {
-                    
+
                     console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
 
                     request(artifactUri, downloadOptions)
