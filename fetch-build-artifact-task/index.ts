@@ -54,12 +54,7 @@ async function run() {
 
         // Validate targetDirectory
         let targetDirectory = task.getInput('targetDirectory', false);
-        if (stringIsNullOrEmpty(targetDirectory)) {
-            task.debug('targetDirectory is null or empty');
-            task.debug('targetDirectory defaulting to ' + process.env['BUILD_SOURCESDIRECTORY']);
-            targetDirectory = process.env['BUILD_SOURCESDIRECTORY'];
-            task.debug('targetDirectory=' + process.env['BUILD_SOURCESDIRECTORY']);
-        }
+        task.mkdirP(targetDirectory);
 
         let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
         task.debug('accountUri=' + accountUri);
