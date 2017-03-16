@@ -13,7 +13,7 @@ function stringIsNullOrEmpty(val: string): boolean {
     return false;
 };
 
-function getRequestOptions(options: any) {
+function getRequestOptions(options: any) : any {
     var baseOptions = {
         auth: {
             bearer: process.env['SYSTEM_ACCESSTOKEN']
@@ -34,6 +34,7 @@ function getRequestOptions(options: any) {
 
 async function run() {
     try {
+        // Validate project
         let project = task.getInput('project', false);
         if (stringIsNullOrEmpty(project)) {
             task.debug('project is null or empty');
@@ -42,6 +43,7 @@ async function run() {
             task.debug('project=' + process.env['SYSTEM_TEAMPROJECT']);
         }
 
+        // Validate buildDefinitionId
         let buildDefinitionId = task.getInput('buildDefinitionId', true);
         let definitionId = Number(buildDefinitionId);
         if (Number.isNaN(definitionId)) {
@@ -50,6 +52,7 @@ async function run() {
 
         let artifactName = task.getInput('artifactName', true);
 
+        // Validate targetDirectory
         let targetDirectory = task.getInput('targetDirectory', false);
         if (stringIsNullOrEmpty(targetDirectory)) {
             task.debug('targetDirectory is null or empty');
@@ -76,8 +79,6 @@ async function run() {
                 $top: 1
             }
         });
-        task.debug('buildsOption:');
-        task.debug(JSON.stringify(buildsOptions));
 
         console.log('Querying completed successful builds of build definition \'' + definitionId + '\'');
 
@@ -109,8 +110,6 @@ async function run() {
                 let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts?api-version=2.0'
 
                 var buildArtifactOptions = getRequestOptions({ uri: buildArtifactUri });
-                task.debug('buildArtifactOptions:');
-                task.debug(JSON.stringify(buildArtifactOptions));
 
                 console.log('Querying build artifact \'' + artifactName + '\'');
                 return rpn(buildArtifactOptions);
