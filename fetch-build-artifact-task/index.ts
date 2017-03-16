@@ -75,7 +75,7 @@ async function run() {
             }
         });
 
-        console.log('Querying completed successful builds of build definition \'' + definitionId + '\'');
+        console.log('Querying project \'' + project + '\' for completed successful builds of build definition \'' + definitionId + '\'');
 
         await rpn(buildsOptions)
             .then(function (builds: any) {
