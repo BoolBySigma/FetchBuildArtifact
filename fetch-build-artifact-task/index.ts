@@ -137,6 +137,11 @@ async function run() {
                     console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
 
                     request(artifactUri, downloadOptions)
+                        .on('error', function (err) {
+                            task.debug('download failed');
+                            task.debug(err.message);
+                            reject('Could not download build artifact from ' + artifactUri);
+                        })
                         .pipe(fs.createWriteStream(artifactPath))
                         .on('error', function (err) {
                             task.debug('download failed');
