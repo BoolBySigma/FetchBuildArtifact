@@ -119,7 +119,7 @@ async function run() {
                 let artifact = artifacts.find(a => a.name === artifactName);
 
                 if (!artifact) {
-                    throw new Error('Could not find build artifact \'' + artifactName + '\'');
+                    throw new Error('Could not find build artifact \'' + artifactName + '\'. Ensure the build definition publishes an artifact named \'' + artifactName + '\'');
                 }
 
                 console.log('Found build artifact \'' + artifactName + '\'');
