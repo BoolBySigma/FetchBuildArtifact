@@ -15,10 +15,10 @@
     "inputs": [
         {
             "name": "project",
-            "type": "string",
+            "type": "pickList",
             "label": "Project",
-            "defaultValue": "$(System.TeamProject)",
-            "required": false,
+            "defaultValue": "",
+            "required": true,
             "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>."
         },
         {
