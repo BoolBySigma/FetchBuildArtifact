@@ -19,15 +19,21 @@
             "label": "Project",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>."
+            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>.",
+            "properties": {
+                "DisableManageLink": "True"
+            }
         },
         {
             "name": "buildDefinitionId",
-            "type": "string",
-            "label": "Build Definition Id",
+            "type": "pickList",
+            "label": "Build Definition",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition."
+            "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition.",
+            "properties": {
+                "DisableManageLink": "True"
+            }
         },
         {
             "name": "artifactName",
@@ -55,9 +61,10 @@
             "authKey": "tfs:teamfoundation"
         },
         {
-            "target": "workItemState",
-            "endpoint": "/$(system.teamProject)/_api/_wit/allowedValues?__v=5&fieldId=2",
-            "selector": "jsonpath:$.__wrappedArray[*]",
+            "target": "buildDefinitionId",
+            "endpoint": "/$(project)/_apis/build/Definitions?queryOrder=3",
+            "selector": "jsonpath:$.value[*].name",
+            "keySelector": "jsonpath:$.value[*].id",
             "authKey": "tfs:teamfoundation"
         }
     ],
