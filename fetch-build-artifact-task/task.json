@@ -46,6 +46,21 @@
             "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>."
         }
     ],
+    "sourceDefinitions": [
+        {
+            "target": "project",
+            "endpoint": "/_api/_wit/teamProjects?__v=5",
+            "selector": "jsonpath:$.projects[*].name",
+            "keySelector": "jsonpath:$.projects[*].guid",
+            "authKey": "tfs:teamfoundation"
+        },
+        {
+            "target": "workItemState",
+            "endpoint": "/$(system.teamProject)/_api/_wit/allowedValues?__v=5&fieldId=2",
+            "selector": "jsonpath:$.__wrappedArray[*]",
+            "authKey": "tfs:teamfoundation"
+        }
+    ],
     "execution": {
         "Node": {
             "target": "index.js",
