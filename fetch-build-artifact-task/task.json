@@ -34,7 +34,7 @@
             "properties": {
                 "DisableManageLink": "True"
             },
-            "visibleRule": "project != "
+            "visibleRule": "project != \"\""
         },
         {
             "name": "artifactName",
@@ -43,7 +43,7 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'.",
-            "visibleRule": "buildDefinitionId != "
+            "visibleRule": "buildDefinitionId != \"\""
         },
         {
             "name": "targetDirectory",
@@ -52,7 +52,7 @@
             "defaultValue": "",
             "required": false,
             "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>.",
-            "visibleRule": "buildDefinitionId != "
+            "visibleRule": "buildDefinitionId != \"\""
         }
     ],
     "sourceDefinitions": [
