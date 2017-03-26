@@ -19,7 +19,7 @@
             "label": "Project",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>.",
+            "helpMarkDown": "Project from where to fetch the build artifact.",
             "properties": {
                 "DisableManageLink": "True"
             }
@@ -30,7 +30,7 @@
             "label": "Build Definition",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition.",
+            "helpMarkDown": "Build definition from where to fetch build artifact.",
             "properties": {
                 "DisableManageLink": "True"
             },
