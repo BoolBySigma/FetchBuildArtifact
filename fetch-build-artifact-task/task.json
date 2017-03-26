@@ -33,7 +33,8 @@
             "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition.",
             "properties": {
                 "DisableManageLink": "True"
-            }
+            },
+            "visibleRule": "project != ''"
         },
         {
             "name": "artifactName",
@@ -41,7 +42,8 @@
             "label": "Build Artifact Name",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
+            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'.",
+            "visibleRule": "buildDefinitionId != ''"
         },
         {
             "name": "targetDirectory",
@@ -49,7 +51,8 @@
             "label": "Target Folder",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>."
+            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>.",
+            "visibleRule": "buildDefinitionId != ''"
         }
     ],
     "sourceDefinitions": [
