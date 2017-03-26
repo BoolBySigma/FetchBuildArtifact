@@ -15,19 +15,26 @@
     "inputs": [
         {
             "name": "project",
-            "type": "string",
+            "type": "pickList",
             "label": "Project",
-            "defaultValue": "$(System.TeamProject)",
-            "required": false,
-            "helpMarkDown": "Project from where to fetch the build artifact. Leaving it blank defaults to the current project and is equal to using <cod>$(System.TeamProject)</code>."
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "Project from where to fetch the build artifact.",
+            "properties": {
+                "DisableManageLink": "True"
+            }
         },
         {
             "name": "buildDefinitionId",
-            "type": "string",
-            "label": "Build Definition Id",
+            "type": "pickList",
+            "label": "Build Definition",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Id of build definition from where to fetch build artifact. Must be a valid numerical value, eg. 12, and an existing build definition."
+            "helpMarkDown": "Build definition from where to fetch build artifact.",
+            "properties": {
+                "DisableManageLink": "True"
+            },
+            "visibleRule": "project != \"\""
         },
         {
             "name": "artifactName",
@@ -35,7 +42,8 @@
             "label": "Build Artifact Name",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'."
+            "helpMarkDown": "Name of the artifact to fetch, eg. 'drop'.",
+            "visibleRule": "buildDefinitionId != \"\""
         },
         {
             "name": "targetDirectory",
@@ -43,7 +51,24 @@
             "label": "Target Folder",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>."
+            "helpMarkDown": "The directory where to download the artifact. Must be an existing directory. Leaving it blank defaults to source root directory and is equal to using <code>$(Build.SourcesDirectory)</code>.",
+            "visibleRule": "buildDefinitionId != \"\""
+        }
+    ],
+    "sourceDefinitions": [
+        {
+            "target": "project",
+            "endpoint": "/_api/_wit/teamProjects?__v=5",
+            "selector": "jsonpath:$.projects[*].name",
+            "keySelector": "jsonpath:$.projects[*].guid",
+            "authKey": "tfs:teamfoundation"
+        },
+        {
+            "target": "buildDefinitionId",
+            "endpoint": "/$(project)/_apis/build/Definitions?queryOrder=3",
+            "selector": "jsonpath:$.value[*].name",
+            "keySelector": "jsonpath:$.value[*].id",
+            "authKey": "tfs:teamfoundation"
         }
     ],
     "execution": {
