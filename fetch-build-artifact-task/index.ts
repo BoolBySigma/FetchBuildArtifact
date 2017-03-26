@@ -38,7 +38,7 @@ async function run() {
         let project = task.getInput('project', false);
         if (stringIsNullOrEmpty(project)) {
             task.debug('project is null or empty');
-            project = process.env['SYSTEM_TEAMPROJECTID'];
+            project = process.env['SYSTEM_TEAMPROJECT'];
             task.debug('project defaulting to ' + project);
             task.debug('project=' + project);
         }
