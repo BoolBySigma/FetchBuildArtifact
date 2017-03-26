@@ -60,7 +60,7 @@
             "target": "project",
             "endpoint": "/_api/_wit/teamProjects?__v=5",
             "selector": "jsonpath:$.projects[*].name",
-            "keySelector": "jsonpath:$.projects[*].name",
+            "keySelector": "jsonpath:$.projects[*].guid",
             "authKey": "tfs:teamfoundation"
         },
         {
