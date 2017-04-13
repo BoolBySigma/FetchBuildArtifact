@@ -34,6 +34,11 @@ function getRequestOptions(options: any): any {
 
 async function run() {
     try {
+        let enableAccessToken = task.getVariable('system.enableAccessToken') == 'true';
+        if (!enableAccessToken) {
+            throw new Error('\'Allow Scripts to Access OAuth Token\' must be enabled.');
+        }
+        
         // Validate project
         let project = task.getInput('project', true);
 
