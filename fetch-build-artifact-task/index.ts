@@ -35,13 +35,7 @@ function getRequestOptions(options: any): any {
 async function run() {
     try {
         // Validate project
-        let project = task.getInput('project', false);
-        if (stringIsNullOrEmpty(project)) {
-            task.debug('project is null or empty');
-            project = process.env['SYSTEM_TEAMPROJECTID'];
-            task.debug('project defaulting to ' + project);
-            task.debug('project=' + project);
-        }
+        let project = task.getInput('project', true);
 
         // Validate buildDefinitionId
         let buildDefinitionId = task.getInput('buildDefinitionId', true);
@@ -127,24 +121,32 @@ async function run() {
                 return artifact;
             })
             .then(function (artifact: any) {
-                // File Share
+                // File share
                 if (artifact.resource.type == 'FilePath') {
+                    task.debug('artifact type: File share')
                     let artifactSourcePath = path.join(artifact.resource.data, artifactName);
+                    task.debug('artifact source path: ' + artifactSourcePath);
+                    task.debug('artifact target path: ' + targetDirectory)
+                    console.log('Copying build artifact from ' + artifactSourcePath + '...');
                     task.cp(artifactSourcePath, targetDirectory, '-rf', false);
+                    console.log('Copying completed');
 
                     return { isZip: false }
                 }
                 // Server
                 else {
+                    task.debug('artifact type: Server');
                     let artifactUri: string = artifact.resource.downloadUrl;
+                    task.debug('artifactUri=' + artifactUri);
 
                     let artifactPath = path.join(targetDirectory, artifactName + '.zip');
+                    task.debug('artifactPath=' + artifactPath);
 
                     var downloadOptions = getRequestOptions({ uri: artifactUri });
 
                     return new Promise(function (resolve, reject) {
 
-                        console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
+                        console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath + '...');
 
                         request(artifactUri, downloadOptions)
                             .on('error', function (err) {
@@ -167,8 +169,12 @@ async function run() {
 
             })
             .then(function (artifact: { isZip: boolean, artifactPath: string }) {
-                if (artifact.isZip) {
-                    console.log('Extracting ' + artifact.artifactPath + ' to ' + path.join(targetDirectory, artifactName));
+                if (!artifact.isZip) {
+                    task.debug('artifact not zip file');
+                    task.debug('skipping zip extraction');
+                }
+                else {
+                    console.log('Extracting ' + artifact.artifactPath + ' to ' + path.join(targetDirectory, artifactName) + '...');
                     let zip = new admZip(artifact.artifactPath);
                     zip.extractAllTo(targetDirectory, true);
                     console.log('Extraction completed');
