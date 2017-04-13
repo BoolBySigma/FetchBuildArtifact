@@ -5,13 +5,6 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as admZip from 'adm-zip';
 
-function stringIsNullOrEmpty(val: string): boolean {
-    if (val === undefined || val === null || val.trim() === '') {
-        return true;
-    }
-    return false;
-};
-
 function getRequestOptions(options: any): any {
     var baseOptions = {
         auth: {
