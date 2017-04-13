@@ -1,5 +1,4 @@
 import * as task from 'vsts-task-lib/task';
-import * as process from 'process';
 import * as request from 'request';
 import * as rpn from 'request-promise-native';
 import * as path from 'path';
@@ -16,12 +15,7 @@ function stringIsNullOrEmpty(val: string): boolean {
 function getRequestOptions(options: any): any {
     var baseOptions = {
         auth: {
-            bearer: process.env['SYSTEM_ACCESSTOKEN']
-        },
-        headers: {
-            Authorization: {
-                Bearer: process.env['SYSTEM_ACCESSTOKEN']
-            }
+            bearer: task.getVariable('System.AccessToken')
         },
         json: true,
         qs: {}
@@ -38,7 +32,7 @@ async function run() {
         if (!enableAccessToken) {
             throw new Error('\'Allow Scripts to Access OAuth Token\' must be enabled.');
         }
-        
+
         // Validate project
         let project = task.getInput('project', true);
 
@@ -55,7 +49,7 @@ async function run() {
         let targetDirectory = task.getInput('targetDirectory', false);
         task.mkdirP(targetDirectory);
 
-        let accountUri = process.env['SYSTEM_TEAMFOUNDATIONCOLLECTIONURI'];
+        let accountUri = task.getVariable('System.TeamFoundationCollectionUri');
         task.debug('accountUri=' + accountUri);
 
         let projectUri = accountUri + project;
