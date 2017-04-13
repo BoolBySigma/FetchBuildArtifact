@@ -1,5 +1,5 @@
 # Fetch Build Artifacts
-Fetch build artifacts from any project and build definition, allowing the current build definition to make use of its contents.
+Fetch build artifacts from server or file share, from any project and build definition, allowing the current build definition to make use of its contents.
 
 ## Note
 This task requires **Allow Scripts to Access OAuth Token** to be **enabled**.
