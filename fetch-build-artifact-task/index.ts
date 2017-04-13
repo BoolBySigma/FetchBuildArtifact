@@ -123,11 +123,12 @@ async function run() {
                 }
 
                 console.log('Found build artifact \'' + artifactName + '\'');
+                
+                return artifact;
+            })
+            .then(function (artifact: any) {
                 let artifactUri: string = artifact.resource.downloadUrl;
 
-                return artifactUri;
-            })
-            .then(function (artifactUri: string) {
                 let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
                 var downloadOptions = getRequestOptions({ uri: artifactUri });
