@@ -13,7 +13,7 @@ function stringIsNullOrEmpty(val: string): boolean {
     return false;
 };
 
-function getRequestOptions(options: any) : any {
+function getRequestOptions(options: any): any {
     var baseOptions = {
         auth: {
             bearer: process.env['SYSTEM_ACCESSTOKEN']
@@ -123,44 +123,57 @@ async function run() {
                 }
 
                 console.log('Found build artifact \'' + artifactName + '\'');
-                
+
                 return artifact;
             })
             .then(function (artifact: any) {
-                let artifactUri: string = artifact.resource.downloadUrl;
+                // File Share
+                if (artifact.resource.type == 'FilePath') {
+                    let artifactSourcePath = path.join(artifact.resource.data, artifactName);
+                    let artifactTargetPath = path.join(targetDirectory, artifactName);
+                    task.cp(artifactSourcePath, artifactTargetPath, '-rf', false);
 
-                let artifactPath = path.join(targetDirectory, artifactName + '.zip');
+                    return { isZip: false }
+                }
+                // Server
+                else {
+                    let artifactUri: string = artifact.resource.downloadUrl;
 
-                var downloadOptions = getRequestOptions({ uri: artifactUri });
+                    let artifactPath = path.join(targetDirectory, artifactName + '.zip');
 
-                return new Promise(function (resolve, reject) {
+                    var downloadOptions = getRequestOptions({ uri: artifactUri });
 
-                    console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
+                    return new Promise(function (resolve, reject) {
 
-                    request(artifactUri, downloadOptions)
-                        .on('error', function (err) {
-                            task.debug('download failed');
-                            task.debug(err.message);
-                            reject('Could not download build artifact from ' + artifactUri);
-                        })
-                        .pipe(fs.createWriteStream(artifactPath))
-                        .on('error', function (err) {
-                            task.debug('download failed');
-                            task.debug(err.message);
-                            reject('Could not download build artifact from ' + artifactUri);
-                        })
-                        .on('finish', function () {
-                            console.log('Download completed');
-                            resolve(artifactPath);
-                        });
-                });
+                        console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath);
+
+                        request(artifactUri, downloadOptions)
+                            .on('error', function (err) {
+                                task.debug('download failed');
+                                task.debug(err.message);
+                                reject('Could not download build artifact from ' + artifactUri);
+                            })
+                            .pipe(fs.createWriteStream(artifactPath))
+                            .on('error', function (err) {
+                                task.debug('download failed');
+                                task.debug(err.message);
+                                reject('Could not download build artifact from ' + artifactUri);
+                            })
+                            .on('finish', function () {
+                                console.log('Download completed');
+                                resolve({ isZip: true, artifactPath: artifactPath });
+                            });
+                    });
+                }
 
             })
-            .then(function (artifactPath: string) {
-                console.log('Extracting ' + artifactPath + ' to ' + path.join(targetDirectory, artifactName));
-                let zip = new admZip(artifactPath);
-                zip.extractAllTo(targetDirectory, true);
-                console.log('Extraction completed');
+            .then(function (artifact: { isZip: boolean, artifactPath: string }) {
+                if (artifact.isZip) {
+                    console.log('Extracting ' + artifact.artifactPath + ' to ' + path.join(targetDirectory, artifactName));
+                    let zip = new admZip(artifact.artifactPath);
+                    zip.extractAllTo(targetDirectory, true);
+                    console.log('Extraction completed');
+                }
             });
 
     } catch (error) {

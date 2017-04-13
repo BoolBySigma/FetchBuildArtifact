@@ -6,7 +6,7 @@
     "publisher": "bool",
     "targets": [
         {
-            "id": "Microsoft.VisualStudio.Services.Cloud"
+            "id": "Microsoft.VisualStudio.Services"
         }
     ],
     "description": "Fetch build artifacts from any project and build definition. The artifact zip file is extracted and allows the current build or release definition to make use of its contents.",
