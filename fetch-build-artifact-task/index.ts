@@ -130,8 +130,7 @@ async function run() {
                 // File Share
                 if (artifact.resource.type == 'FilePath') {
                     let artifactSourcePath = path.join(artifact.resource.data, artifactName);
-                    let artifactTargetPath = path.join(targetDirectory, artifactName);
-                    task.cp(artifactSourcePath, artifactTargetPath, '-rf', false);
+                    task.cp(artifactSourcePath, targetDirectory, '-rf', false);
 
                     return { isZip: false }
                 }
