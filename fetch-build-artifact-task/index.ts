@@ -43,7 +43,6 @@ async function run() {
         task.mkdirP(targetDirectory);
 
         let accountUri = task.getVariable('System.TeamFoundationCollectionUri');
-        task.debug('accountUri=' + accountUri);
 
         let projectUri = accountUri + project;
         task.debug('projectUri=' + projectUri);
@@ -60,6 +59,7 @@ async function run() {
                 $top: 1
             }
         });
+        task.debug('buildsOptions=' + JSON.stringify(buildsOptions));
 
         console.log('Requesting build artifact \'' + artifactName + '\'...')
 
@@ -89,7 +89,7 @@ async function run() {
                 task.debug('buildArtifactUri=' + buildArtifactUri);
 
                 var buildArtifactOptions = getRequestOptions({ uri: buildArtifactUri });
-                task.debug('buildArtifactOptions=' + buildArtifactOptions);
+                task.debug('buildArtifactOptions=' + JSON.stringify(buildArtifactOptions));
 
                 task.debug('requesting build details');
                 return rpn(buildArtifactOptions);
@@ -100,11 +100,11 @@ async function run() {
                 }
 
                 let artifacts: any[] = results.value;
-                task.debug('artifacts: ' + artifacts);
+                task.debug('artifacts: ' + JSON.stringify(artifacts));
 
                 task.debug('filtering artifacts for ' + artifactName);
                 let artifact = artifacts.find(a => a.name === artifactName);
-                task.debug('artifact=' + artifact);
+                task.debug('artifact=' + JSON.stringify(artifact));
 
                 if (!artifact) {
                     throw new Error('Could not find build artifact \'' + artifactName + '\'. Ensure the build definition publishes an artifact named \'' + artifactName + '\'');
@@ -137,7 +137,7 @@ async function run() {
                     task.debug('artifactPath=' + artifactPath);
 
                     var downloadOptions = getRequestOptions({ uri: artifactUri });
-                    task.debug('downloadOptions=' + downloadOptions);
+                    task.debug('downloadOptions=' + JSON.stringify(downloadOptions));
 
                     return new Promise(function (resolve, reject) {
 
