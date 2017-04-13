@@ -61,7 +61,7 @@ async function run() {
             }
         });
 
-        console.log('Querying project \'' + project + '\' for completed successful builds of build definition \'' + definitionId + '\'');
+        console.log('Requesting build artifact \'' + artifactName + '\'...')
 
         await rpn(buildsOptions)
             .then(function (builds: any) {
@@ -72,13 +72,10 @@ async function run() {
                     return null;
                 }
 
-                task.debug('build:');
-                task.debug(JSON.stringify(build));
-
                 return build.id;
             })
             .catch(function (err) {
-                throw new Error('Could not find project \'' + project + '\'. Make sure \'Allow Scripts to Access OAuth Token\' is enabled and that the project exists.');
+                throw new Error('Could not find project \'' + project + '\'. Make sure that the project exists.');
             })
             .then(function (buildId) {
                 task.debug('buildId=' + buildId);
@@ -86,29 +83,34 @@ async function run() {
                     throw new Error('Could not find a completed successful build. Ensure that build definition \'' + definitionId + '\' has a successful build.');
                 }
 
-                console.log('Found build \'' + buildId + '\'');
+                task.debug('found build ' + buildId);
 
-                let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts?api-version=2.0'
+                let buildArtifactUri = projectUri + '/_apis/build/builds/' + buildId + '/artifacts';
+                task.debug('buildArtifactUri=' + buildArtifactUri);
 
                 var buildArtifactOptions = getRequestOptions({ uri: buildArtifactUri });
+                task.debug('buildArtifactOptions=' + buildArtifactOptions);
 
-                console.log('Querying build artifact \'' + artifactName + '\'');
+                task.debug('requesting build details');
                 return rpn(buildArtifactOptions);
             })
             .then(function (results: any) {
                 if (results.count === '0') {
-                    throw new Error('Could not find build');
+                    throw new Error('Could not find build details');
                 }
 
                 let artifacts: any[] = results.value;
+                task.debug('artifacts: ' + artifacts);
 
+                task.debug('filtering artifacts for ' + artifactName);
                 let artifact = artifacts.find(a => a.name === artifactName);
+                task.debug('artifact=' + artifact);
 
                 if (!artifact) {
                     throw new Error('Could not find build artifact \'' + artifactName + '\'. Ensure the build definition publishes an artifact named \'' + artifactName + '\'');
                 }
 
-                console.log('Found build artifact \'' + artifactName + '\'');
+                console.log('Found build artifact');
 
                 return artifact;
             })
@@ -135,10 +137,11 @@ async function run() {
                     task.debug('artifactPath=' + artifactPath);
 
                     var downloadOptions = getRequestOptions({ uri: artifactUri });
+                    task.debug('downloadOptions=' + downloadOptions);
 
                     return new Promise(function (resolve, reject) {
 
-                        console.log('Downloading build artifact \'' + artifactName + '\' to ' + artifactPath + '...');
+                        console.log('Downloading build artifact \'' + artifactName + '\'...');
 
                         request(artifactUri, downloadOptions)
                             .on('error', function (err) {
