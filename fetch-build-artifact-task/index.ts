@@ -21,10 +21,10 @@ function getRequestOptions(options: any): any {
 
 async function run() {
     try {
-        let enableAccessToken = task.getVariable('system.enableAccessToken') == 'true';
+        /*let enableAccessToken = task.getVariable('system.enableAccessToken') == 'true';
         if (!enableAccessToken) {
             throw new Error('\'Allow Scripts to Access OAuth Token\' must be enabled.');
-        }
+        }*/
 
         // Validate project
         let project = task.getInput('project', true);
@@ -75,7 +75,7 @@ async function run() {
                 return build.id;
             })
             .catch(function (err) {
-                throw new Error('Could not find project \'' + project + '\'. Make sure that the project exists.');
+                throw new Error('Could not find project \'' + project + '\'. Make sure that the project exists and that \'Allow Scripts to Access OAuth Token\' is enabled.');
             })
             .then(function (buildId) {
                 task.debug('buildId=' + buildId);
