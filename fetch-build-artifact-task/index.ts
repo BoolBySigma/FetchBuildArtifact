@@ -110,6 +110,8 @@ async function run() {
                     throw new Error('Could not find build artifact \'' + artifactName + '\'. Make sure the build definition publishes build artifact \'' + artifactName + '\'.');
                 }
 
+                console.log('Found build artifact');
+
                 return artifact;
             })
             .then(function (artifact: any) {
@@ -121,8 +123,6 @@ async function run() {
                     if (!task.exist(artifactSourcePath)) {
                         throw new Error('Could not find build artifact \'' + artifactName + '\' in ' + artifact.resource.data + '. Make sure the build definition publishes build artifact \'' + artifactName + '\'.');
                     }
-
-                    console.log('Found build artifact');
 
                     task.debug('artifact source path: ' + artifactSourcePath);
                     task.debug('artifact target path: ' + targetDirectory)
