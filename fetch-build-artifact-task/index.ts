@@ -107,7 +107,7 @@ async function run() {
                 task.debug('artifact=' + JSON.stringify(artifact));
 
                 if (!artifact) {
-                    throw new Error('Could not find build artifact \'' + artifactName + '\'. Ensure the build definition publishes an artifact named \'' + artifactName + '\'');
+                    throw new Error('Could not find build artifact \'' + artifactName + '\'. Make sure the build definition publishes build artifact \'' + artifactName + '\'.');
                 }
 
                 return artifact;
@@ -119,7 +119,7 @@ async function run() {
                     let artifactSourcePath = path.join(artifact.resource.data, artifactName);
 
                     if (!task.exist(artifactSourcePath)) {
-                        throw new Error('Could not find build artifact \'' + artifactName + '\' in ' + artifact.resource.data + '. Make sure the build definition publishes build artifact \'' + artifactName + '\'');
+                        throw new Error('Could not find build artifact \'' + artifactName + '\' in ' + artifact.resource.data + '. Make sure the build definition publishes build artifact \'' + artifactName + '\'.');
                     }
 
                     console.log('Found build artifact');
