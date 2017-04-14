@@ -116,7 +116,7 @@ async function run() {
             })
             .then(function (artifact: any) {
                 // File share
-                if (artifact.resource.type == 'FilePath') {
+                if (artifact.resource.type.toLowerCase() === 'filepath') {
                     task.debug('artifact type: File share')
                     let artifactSourcePath = path.join(artifact.resource.data, artifactName);
                     task.debug('artifact source path: ' + artifactSourcePath);
