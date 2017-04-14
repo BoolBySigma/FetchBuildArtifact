@@ -110,8 +110,6 @@ async function run() {
                     throw new Error('Could not find build artifact \'' + artifactName + '\'. Ensure the build definition publishes an artifact named \'' + artifactName + '\'');
                 }
 
-                console.log('Found build artifact');
-
                 return artifact;
             })
             .then(function (artifact: any) {
@@ -119,6 +117,13 @@ async function run() {
                 if (artifact.resource.type.toLowerCase() === 'filepath') {
                     task.debug('artifact type: File share')
                     let artifactSourcePath = path.join(artifact.resource.data, artifactName);
+
+                    if (!task.exist(artifactSourcePath)) {
+                        throw new Error('Could not find build artifact \'' + artifactName + '\' in ' + artifact.resource.data + '. Make sure the build definition publishes build artifact \'' + artifactName + '\'');
+                    }
+
+                    console.log('Found build artifact');
+
                     task.debug('artifact source path: ' + artifactSourcePath);
                     task.debug('artifact target path: ' + targetDirectory)
                     console.log('Copying build artifact from ' + artifactSourcePath + '...');
