@@ -5,8 +5,6 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as admZip from 'adm-zip';
 
-ssl.inject();
-
 function getRequestOptions(options: any): any {
     var baseOptions = {
         rejectUnauthorized: false,
