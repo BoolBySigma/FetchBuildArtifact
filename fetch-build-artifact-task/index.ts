@@ -4,12 +4,12 @@ import * as rpn from 'request-promise-native';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as admZip from 'adm-zip';
-import * as ssl from 'ssl-root-cas';
 
 ssl.inject();
 
 function getRequestOptions(options: any): any {
     var baseOptions = {
+        rejectUnauthorized: false,
         auth: {
             bearer: task.getVariable('System.AccessToken')
         },
