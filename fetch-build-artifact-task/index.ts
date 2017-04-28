@@ -75,6 +75,7 @@ async function run() {
                 return build.id;
             })
             .catch(function (err) {
+                task.debug(JSON.stringify(err));
                 throw new Error('Could not find project \'' + project + '\'. Make sure that the project exists.');// and that \'Allow Scripts to Access OAuth Token\' is enabled.');
             })
             .then(function (buildId) {
