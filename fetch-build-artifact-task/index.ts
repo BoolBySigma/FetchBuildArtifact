@@ -7,7 +7,7 @@ import * as admZip from 'adm-zip';
 
 function getRequestOptions(options: any): any {
     var baseOptions = {
-        //rejectUnauthorized: false,
+        rejectUnauthorized: false,
         auth: {
             bearer: task.getVariable('System.AccessToken')
         },
