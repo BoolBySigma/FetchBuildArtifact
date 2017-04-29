@@ -7,12 +7,12 @@ import * as admZip from 'adm-zip';
 
 function getRequestOptions(options: any): any {
     var baseOptions = {
-        rejectUnauthorized: false,
         auth: {
             bearer: task.getVariable('System.AccessToken')
         },
         json: true,
-        qs: {}
+        qs: {},
+        rejectUnauthorized: false
     }
     options = Object.assign(baseOptions, options);
     options.qs = Object.assign(options.qs, { 'api-version': '2.0' });
