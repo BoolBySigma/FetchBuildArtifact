@@ -1,58 +1,58 @@
 {
-    "manifestVersion": 1,
-    "id": "fetch-build-artifact",
-    "name": "Fetch Build Artifacts",
-    "version": "0.0.1",
-    "publisher": "bool",
-    "targets": [
-        {
-            "id": "Microsoft.VisualStudio.Services.Cloud"
-        },
-        {
-            "id": "Microsoft.TeamFoundation.Server",
-            "version": "[15.0,)"
-        }
-    ],
-    "description": "Fetch build artifacts from server or file share, from any project and build definition, allowing the current build definition to make use of its contents.",
-    "categories": [
-        "Build and release"
-    ],
-    "tags": [
-        "Artifact", "Utility task", "Build", "Continuous Integration"
-    ],
-    "icons": {
-        "default": "icon-128.png",
-        "large": "icon-512.png"
+  "manifestVersion": 1,
+  "id": "fetch-build-artifact",
+  "name": "Fetch Build Artifacts",
+  "version": "0.0.1",
+  "publisher": "bool",
+  "targets": [
+    {
+      "id": "Microsoft.VisualStudio.Services.Cloud"
     },
-    "content": {
-        "details": {
-            "path": "overview.md"
-        }
+    {
+      "id": "Microsoft.TeamFoundation.Server",
+      "version": "[15.0,)"
+    }
+  ],
+  "description": "Fetch build artifacts from server or file share, from any project and build definition, allowing the current build definition to make use of its contents.",
+  "categories": [
+    "Build and release"
+  ],
+  "tags": [
+    "Artifact", "Utility task", "Build", "Continuous Integration"
+  ],
+  "icons": {
+    "default": "icon-128.png",
+    "large": "icon-512.png"
+  },
+  "content": {
+    "details": {
+      "path": "overview.md"
+    }
+  },
+  "links": {
+    "support": {
+      "uri": "https://github.com/BoolBySigma/FetchBuildArtifact/issues"
+    }
+  },
+  "files": [
+    {
+      "path": "fetch-build-artifact-task"
     },
-    "links": {
-        "support": {
-            "uri": "https://github.com/BoolBySigma/FetchBuildArtifact/issues"
-        }
-    },
-    "files": [
-        {
-            "path": "fetch-build-artifact-task"
-        },
-        {
-            "path": "images",
-            "addressable": true
-        }
-    ],
-    "contributions": [
-        {
-            "id": "fetch-build-artifact-task",
-            "type": "ms.vss-distributed-task.task",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "fetch-build-artifact-task"
-            }
-        }
-    ]
+    {
+      "path": "images",
+      "addressable": true
+    }
+  ],
+  "contributions": [
+    {
+      "id": "fetch-build-artifact-task",
+      "type": "ms.vss-distributed-task.task",
+      "targets": [
+        "ms.vss-distributed-task.tasks"
+      ],
+      "properties": {
+        "name": "fetch-build-artifact-task"
+      }
+    }
+  ]
 }
