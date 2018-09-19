@@ -37,6 +37,8 @@ async function run() {
             throw new Error('Build Definition Id must be a numerical value');
         }
 
+        let buildNumber = task.getInput('buildNumber', false);
+
         let artifactName = task.getInput('artifactName', true);
 
         // Validate targetDirectory
@@ -51,6 +53,8 @@ async function run() {
         let buildsUri = projectUri + '/_apis/build/builds';
         task.debug('buildsUri=' + buildsUri);
 
+        let tagsToSearchFor = task.getInput('tagsToSearchFor', false);
+
         var buildsOptions = getRequestOptions({
             uri: buildsUri,
             qs: {
@@ -60,6 +64,21 @@ async function run() {
                 $top: 1
             }
         });
+
+		// If we specified a particular build to use, add that to the search option.
+        if(buildNumber)
+        {
+            buildsOptions.qs = Object.assign(buildsOptions.qs, { 'buildNumber': buildNumber });
+        }
+        else
+        {
+			// If we did not specify a particular build to use, then we can add the tag filter if specified.
+            if(tagsToSearchFor)
+            {
+                buildsOptions.qs = Object.assign(buildsOptions.qs, { 'tagFilters': tagsToSearchFor });
+            }
+        }
+        
         task.debug('buildsOptions=' + JSON.stringify(buildsOptions));
 
         console.log('Requesting build artifact \'' + artifactName + '\'...')
